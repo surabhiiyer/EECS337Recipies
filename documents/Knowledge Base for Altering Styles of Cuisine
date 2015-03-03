@@ -1,0 +1,85 @@
+Knowledge Base for Altering Styles of cuisine
+
+Method:
+- Grab ingredients that don't fit model
+- find fitting ingredients that can replace them
+- swap ingredients
+
+Ingredients organized by
+ > Cuisine
+ 	- Italian, French, American, Indian, etc.
+ > Category
+ 	- protein
+ 	- spices
+ 	- vegetables
+ 	- starch
+
+Examples 
+Italian:
+	> Starch
+		- arborio rice
+		- penne
+		- maccheroni
+		- spaghetti
+		- linguine
+		- fusilli
+		- lasagne
+		- ravioli
+		- tortellini
+		- gnocchi
+		- rigatoni
+		- (flour)
+	> Protein
+		- chicken
+		- veal
+		- beef
+		- seafood
+		- prosciutto
+	> dairy
+		- Mozzerella
+		- Parmesean
+		- 
+	> vegetables
+		- tomatoes
+		- vannellini beans
+		- olives
+		- artichokes
+	> Spices/Other
+		- pine nuts
+		- breadcrumbs
+		- garlic
+		- basil
+		- balsamic vinegar
+		- wine
+		- pasta sauces
+
+Mexican:
+	> Starch
+		- tortilla
+		- rice
+		- potatoes
+	> Protein
+		- chicken
+		- beef
+		- pork
+	> dairy
+		- pepper jack
+		- monterray jack
+		- mexican blend cheese
+	> Vegetables
+		- avocados
+		- corn
+		- peppers
+		- tomatoes
+		- onion
+		- cilantro
+		- beans
+	> Spices/Other
+		- jalapeno
+		- habanero
+		- chili
+		- cocoa
+		- vanilla
+		- lime
+
+
