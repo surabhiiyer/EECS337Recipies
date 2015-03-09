@@ -96,4 +96,5 @@ wax paper
 whisk
 zester
 zyliss
+bowl
 skillet

@@ -1,0 +1,10 @@
+add
+chop
+crush
+mince
+mix
+grate
+stir
+shake
+squeeze
+whisk

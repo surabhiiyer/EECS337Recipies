@@ -12,11 +12,11 @@ class Ingredients:
 	def __init__(self):
 		self.m_IngName = ''
 		self.m_IngType = ''
-		self.m_IngQuantity = 0.0
+		self.m_IngQuantity = ''
 		self.m_IngMeasurement = ''
-		self.m_IngDescriptor = ''
-		self.m_IngPreparation = ''
-		self.m_IngPrepDescriptor = ''
+		self.m_IngDescriptor = []
+		self.m_IngPreparation = []
+		self.m_IngPrepDescriptor = []
 
 class Tools:
 	def __init__(self):
@@ -28,3 +28,4 @@ class Methods:
 		self.m_MethodName = '' #Method name
 		self.m_MethodType = '' #Cooking method type - Primary or Secondary
 		self.m_ingredientUsed = [] #Ingredient on which the method has to be applied
+		self.m_toolsUsed = []

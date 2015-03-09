@@ -22,10 +22,22 @@ def populateTools():
 			f.write(utensilName+'\n')
 	f.close()		
 
-#create a dictionary of cooking methods from www.thedailymeal.com
-# def populateCookingMethods():
-# 	methods = []
-# 	html_source = urllib2.urlopen("http://www.thedailymeal.com/15-basic-cooking-methods-you-need-know-slideshow")
-# 	page = BeautifulSoup(html_source)
-# 	listTag = page.findAll('li', class_='thumb')
-# 	print listTag
+def populateSpices():
+	f = open('vocabulary/spices.txt','w')
+	html_source = urllib2.urlopen("http://www.realsimple.com/food-recipes/shopping-storing/herbs-spices/basic-spice-checklist")
+	spicesPage = BeautifulSoup(html_source)
+	labels = spicesPage.findAll('label')
+	for label in labels:
+		tag = label.find('strong')
+		if tag:
+			f.write(tag.string.lower()+'\n')
+
+	html_source = urllib2.urlopen("http://www.realsimple.com/food-recipes/shopping-storing/herbs-spices/gourmet-spice-checklist")
+	spicesPage = BeautifulSoup(html_source)
+	labels = spicesPage.findAll('label')
+	for label in labels:
+		tag = label.find('strong')
+		if tag:
+			f.write(tag.string.lower()+'\n')	
+	f.close()			
+				
