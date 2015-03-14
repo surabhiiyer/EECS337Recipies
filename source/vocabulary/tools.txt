@@ -98,3 +98,4 @@ zester
 zyliss
 bowl
 skillet
+frying pan

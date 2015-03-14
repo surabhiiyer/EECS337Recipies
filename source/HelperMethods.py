@@ -3,6 +3,7 @@ import re
 import nltk
 import ProjectDictionary
 import RecipeRepresentation
+import json
 
 # to be used to tokenize words
 from nltk.tokenize import TreebankWordTokenizer
@@ -22,6 +23,8 @@ ingredientList = []
 cookingMethodsList = []
 toolsList = []
 
+#the pos tags do not treat these as nouns
+exceptionNouns = ['chicken']
 
 def identifyTools(directionsList):
 	f = open('vocabulary/tools.txt', 'r+')
@@ -123,19 +126,100 @@ def identifyIngredients(ingredientsDict):
 	 		ingObject.m_IngMeasurement = result[1]
 		tokens = wordTokenizer.tokenize(key.lower())
 		posTags = nltk.pos_tag(tokens)
+		name = ''
+		descriptor = ''
+		preparation = ''
+		prepDescriptor = ''
 		for (data,tag) in posTags:
-			if(tag == 'NN' or tag == 'NNS'):
-				ingObject.m_IngName = data
-			elif(tag == 'JJ'):
-				ingObject.m_IngDescriptor.append(data)
-			elif(tag == 'VB' or tag == 'VBD' or tag == 'VBP' or tag == 'VBN' or tag == 'VBG' or tag == 'VBZ'):
-				ingObject.m_IngPreparation.append(data)
-			elif(tag == 'RB'):
-				ingObject.m_IngPrepDescriptor.append(data)	
+			if(tag == 'NN' or tag == 'NNS' or data in exceptionNouns):
+				name = name + data + ' ' 
+			elif(tag == 'JJ' or data not in exceptionNouns):
+				descriptor = descriptor + data + ','
+			elif(tag == 'VB' or tag == 'VBD' or tag == 'VBP' or tag == 'VBN' or tag == 'VBG' or tag == 'VBZ' or data not in exceptionNouns):
+				preparation = preparation + data + ','
+			elif(tag == 'RB' or data not in exceptionNouns):
+				prepDescriptor = prepDescriptor + data + ','
+		ingObject.m_IngName = name[:len(name)-1]
+		ingObject.m_IngDescriptor.append(descriptor[:len(descriptor)-1])
+		ingObject.m_IngPreparation.append(preparation[:len(preparation)-1])
+		ingObject.m_IngPrepDescriptor.append(prepDescriptor[:len(prepDescriptor)-1])			
 		if(ingObject.m_IngName != ''):
-			ingredientList.append(ingObject)	
-		
-	 						
+			ingredientList.append(ingObject)
 
+
+def identifyIngredientType():
+	json_data = open('vocabulary/ingredientTypes.json')
+	ingData = json.load(json_data)
+	spices = ingData['spices']
+	protPoultry = ingData['proteins']['poultry']
+	protMeats = ingData['proteins']['meats']
+	protEggs = ingData['proteins']['eggs']
+	protSeafood = ingData['proteins']['seafood']
+	protVeg = ingData['proteins']['vegetarian']
+	protBeans = ingData['proteins']['beans']
+	dairy = ingData['dairy']
+	nuts = ingData['nuts']
+	breads = ingData['breads']
+	for ingObject in ingredientList:
+		tokens = wordTokenizer.tokenize(ingObject.m_IngName)
+		for token in tokens:
+			if token in spices:
+				ingObject.m_IngType = 'spices'
+			elif token in dairy: 	
+		 		ingObject.m_IngType = 'dairy'
+		 	elif token in protPoultry:
+		 		ingObject.m_IngType = 'poultry'
+		 	elif token in protMeats:
+		 		ingObject.m_IngType = 'meat'
+		 	elif token in protEggs:
+		 		ingObject.m_IngType = 'eggs'
+		 	elif token in protSeafood:
+		 		ingObject.m_IngType = 'seafood'
+		 	elif token in protVeg:
+		 		ingObject.m_IngType = 'vegetarian'					
+		 	elif token in protBeans:
+		 		ingObject.m_IngType = 'beans'
+		 	elif token in nuts:
+		 		ingObject.m_IngType = 'nuts'
+		 	elif token in breads:	
+		 		ingObject.m_IngType = 'breads'
+		 	elif token == 'oil':
+		 		ingObject.m_IngType = 'oil'
+		 	else:
+		 		ingObject.m_IngType = 'unknown'			
+	json_data.close()	 		
+
+
+transformMethodList = []
+
+def transformCookingMethod():
+	catTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
+	'stew','simmer']
+	ruleTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
+	'stew','simmer']
+	toolTypes = ['bake','broil','boil','deep-fry','pan-fry','roast','poach','stir-fry',
+	'stew','simmer']
+	json_data = open('vocabulary/methodTransformation.json')
+	methodData = json.load(json_data)
+	categories = methodData['categories']
+	rules = methodData['rules']
+	tools = methodData['tools']
+	for methodObject in cookingMethodsList:
+		if methodObject.m_MethodType == 'secondary':
+			continue
+		else:
+			for ingredient in methodObject.m_ingredientUsed:
+				for ingObject in ingredientList:
+					if ingredient == ingObject.m_IngName:
+						ingType = ingObject.m_IngType
+						break
+				if ingType == "unknown":
+					continue
+				else:
+					
+							
+
+
+			
 
 

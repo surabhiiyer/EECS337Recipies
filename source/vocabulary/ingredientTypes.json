@@ -1,0 +1,20 @@
+{
+	"spices": ["bay leaves","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger",
+		"kosher salt","salt","nutmeg","oregano","paprika","red pepper","rosemary","sesame seeds","thyme","vanilla extract","allspice","ancho chilies",
+		"anise seeds","cajun", "blackening seasoning","caraway seeds","cardamom","cardamom pods","celery salt","celery seed","chinese five-spice powder","cinnamon sticks",
+		"cloves","coriander","coriander","cumin seeds","fennel seeds","fenugreek seeds","fleur de sel","garam masala","herbes de provence","juniper berries","lemongrass",
+		"mustard powder","mustard seeds","nutmeg","poppy seeds","poultry seasoning","saffron","seafood seasoning","smoked paprika","star anise","szechuan peppercorns","turmeric","vanilla beans","wasabi powder","white peppercorns","turmeric"],
+	"proteins":{
+		"poultry": ["chicken","duck","goose","turkey","ground chicken","ground turkey"],
+		"meats": ["beef","ham","lamb","pork","veal","bison","rabbit","venison","liver","giblets"],
+		"eggs": ["chicken eggs","duck eggs"],
+		"seafood": ["catfish","cod","flounder","haddock","halibut","herring","mackerel","pollock","porgy","salmon","sea bass","snapper","swordfish",
+			"trout","tuna","clams","crab","crayfish","lobster","mussels","octopus","oysters","scallops","squid","calamari","shrimp"],
+		"vegetarian" : ["tofu","cottage cheese","veggie burgers","tempeh","texturized vegetable protein"],
+		"beans": ["bean burgers","black beans","black-eyed peas","chickpeas","falafel","kidney beans","lentils","lima beans",
+			"navy beans","pinto beans","soy beans","split peas","white beans"]
+	},
+	"dairy": ["milk","cheese","yogurt","butter"],
+	"nuts": ["almonds","cashews","hazelnuts","filberts","mixed nuts","peanuts","peanut butter","pecans","pistachios","pumpkin seeds","sesame seeds","sunflower seeds","walnuts"],
+	"breads": ["corn muffins", "crumpets", "fin crisp","gluten free muffins","hushpuppy","rye vita","pancakes","scones","sweet potato muffins","tortilla","pizza"]
+}
