@@ -83,6 +83,7 @@ def identifyCookingMethods(directionsList):
 	for instructions in directionsList:	
 		sentences = sentenceTokenizer.tokenize(instructions)
 		for sentence in sentences:
+			#pdb.set_trace()
 			for cookingMethod in primaryCookingMethods:
 				if cookingMethod in sentence.lower():
 					methodObject = RecipeRepresentation.Methods()
@@ -148,7 +149,7 @@ def identifyIngredients(ingredientsDict):
 			ingredientList.append(ingObject)
 
 def identifyIngredientType():
-	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers']
+	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers','sauce']
 	proteinCatgs = ['poultry','meats','eggs','seafood','vegetarian','beans']
 	vegeCatgs = ['regular', 'onions', 'roots', 'radish', 'squash', 'tubers']
 	ingData = open('vocabulary/ingredientTypes.json')
@@ -167,7 +168,6 @@ def identifyIngredientType():
 							breakFlag = 1
 							break
 					if breakFlag == 1:
-						breakFlag = 0
 						break
 				elif(category == 'vegetables'):
 					for vegeType in vegeCatgs:
@@ -177,64 +177,20 @@ def identifyIngredientType():
 							breakFlag = 1
 							break
 					if breakFlag == 1:
-						breakFlag = 0
 						break
 				else:
 					ingCategory = json_data[category]
 					if token in ingCategory:
 						ingObject.m_IngType = category
 						breakFlag = 1
-						break			
+						break
+			if breakFlag == 0:
+				ingObject.m_IngType = 'unknown'
+			else:
+				break	
+										
 	ingData.close()	
-
-
-
-
-
-# def identifyIngredientType():
-# 	json_data = open('vocabulary/ingredientTypes.json')
-# 	ingData = json.load(json_data)
-# 	spices = ingData['spices']
-# 	protPoultry = ingData['proteins']['poultry']
-# 	protMeats = ingData['proteins']['meats']
-# 	protEggs = ingData['proteins']['eggs']
-# 	protSeafood = ingData['proteins']['seafood']
-# 	protVeg = ingData['proteins']['vegetarian']
-# 	protBeans = ingData['proteins']['beans']
-# 	dairy = ingData['dairy']
-# 	nuts = ingData['nuts']
-# 	breads = ingData['breads']
-# 	for ingObject in ingredientList:
-# 		tokens = wordTokenizer.tokenize(ingObject.m_IngName)
-# 		for token in tokens:
-# 			if token in spices:
-# 				ingObject.m_IngType = 'spices'
-# 			elif token in dairy: 	
-# 		 		ingObject.m_IngType = 'dairy'
-# 		 	elif token in protPoultry:
-# 		 		ingObject.m_IngType = 'poultry'
-# 		 	elif token in protMeats:
-# 		 		ingObject.m_IngType = 'meat'
-# 		 	elif token in protEggs:
-# 		 		ingObject.m_IngType = 'eggs'
-# 		 	elif token in protSeafood:
-# 		 		ingObject.m_IngType = 'seafood'
-# 		 	elif token in protVeg:
-# 		 		ingObject.m_IngType = 'vegetarian'					
-# 		 	elif token in protBeans:
-# 		 		ingObject.m_IngType = 'beans'
-# 		 	elif token in nuts:
-# 		 		ingObject.m_IngType = 'nuts'
-# 		 	elif token in breads:	
-# 		 		ingObject.m_IngType = 'breads'
-# 		 	elif token == 'oil':
-# 		 		ingObject.m_IngType = 'oil'
-# 		 	else:
-# 		 		ingObject.m_IngType = 'unknown'			
-# 	json_data.close()	 		
-
-
-transformMethodList = []
+ 		
 
 # def transformCookingMethod():
 # 	catTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
@@ -252,14 +208,17 @@ transformMethodList = []
 # 		if methodObject.m_MethodType == 'secondary':
 # 			continue
 # 		else:
-# 			for ingredient in methodObject.m_ingredientUsed:
-# 				for ingObject in ingredientList:
-# 					if ingredient == ingObject.m_IngName:
-# 						ingType = ingObject.m_IngType
-# 						break
-# 				if ingType == "unknown":
-# 					continue
-# 				else:
+# 			for rule in ruleTypes:
+# 				transformList = methodData['rules'][methodObject.m_MethodName]
+# 				for ingredient in methodObject.m_ingredientUsed:
+# 					for ingObject in ingredientList:
+# 		 				if ingObject.m_IngName == ingredient:
+# 							ingType = ingObject.m_IngType
+# 							for transform in transformList:
+# 								catList = methodData['categories'][transform]
+# 								if ingType in catList
+# 									m_MethodName.m_optionalMethods.append(transform)
+
 					
 							
 

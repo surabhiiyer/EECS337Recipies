@@ -14,9 +14,9 @@ if __name__ == "__main__":
 	#ProjectDictionary.populateTools()
 	print("Reading ingredients...\n")
 	HelperMethods.identifyIngredients(ingredientsDict)
+	HelperMethods.identifyIngredientType()
 	HelperMethods.identifyTools(directionsList)
 	HelperMethods.identifyCookingMethods(directionsList)
-	HelperMethods.identifyIngredientType()
 	HelperMethods.ingredientList
 	HelperMethods.cookingMethodsList
 	print("Ready!!!\n")
@@ -48,7 +48,7 @@ if __name__ == "__main__":
 			output += ' in/on a '+toolName
 		print output	
 
-
+	#HelperMethods.transformCookingMethod()
 									
 	print "Ingredients:"
 	for ingredient in HelperMethods.ingredientList:
