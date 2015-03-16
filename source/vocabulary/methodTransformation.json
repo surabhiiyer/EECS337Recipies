@@ -3,7 +3,7 @@
 		"bake": ["poultry","meats","eggs","seafood","vegetarian","beans","vegetables","breads"],
 		"broil" : ["poultry","meats","eggs","seafood","vegetarian"],
 		"barbecue": ["poultry","meats","seafood","vegetarian","vegetables"],
-		"boil": ["poultry","meats","seafood","eggs","vegetables","beans"],
+		"boil": ["poultry","meats","seafood","eggs","vegetables","beans","grains"],
 		"deep-fry" : ["poultry","meats","seafood","vegetarian"],
 		"pan-fry" : ["poultry","meats","seafood","vegetarian","vegetables","beans","eggs"],
 		"grill" : ["poultry","meats","seafood"],

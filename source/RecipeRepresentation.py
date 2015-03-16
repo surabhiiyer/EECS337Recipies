@@ -29,3 +29,4 @@ class Methods:
 		self.m_MethodType = '' #Cooking method type - Primary or Secondary
 		self.m_ingredientUsed = [] #Ingredient on which the method has to be applied
 		self.m_toolsUsed = []
+		self.m_optionalMethods = []

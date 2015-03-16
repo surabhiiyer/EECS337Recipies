@@ -7,7 +7,9 @@ deglaze
 dice
 drizzle
 fold
+freeze
 glaze
+heat
 marinate
 mince
 mix

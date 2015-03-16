@@ -17,16 +17,101 @@ sentenceTokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 from nltk.corpus import stopwords
 stopWordsList = stopwords.words('english') 
 
-regExTools = re.compile(r'(in a|take a) ([a-z]*) ([a-z]*)', re.IGNORECASE)
-#regExTools = re.compile(r'(in\s{0,1}[a]{0,1}|take a) ([a-z]+).([a-z]*) ([a-z]+)', re.IGNORECASE)
-#regExTools2 = re.compile(r'[in]to\s*[a-z]*\s*([a-z]*)', re.IGNORECASE)
 ingredientList = []
 cookingMethodsList = []
 toolsList = []
 
-#the pos tags do not treat these as nouns
-exceptionNouns = ['chicken']
+def removeDuplicates():
+	for ingObject in ingredientList:
+		name = ingObject.m_IngName
+		descrptorList = ingObject.m_IngDescriptor
+		for index in range(0,len(descrptorList)):
+			if name == descrptorList[index]:
+				ingObject.m_IngDescriptor[index] = ''
 
+		prepList = ingObject.m_IngPreparation
+		for index in range(0,len(prepList)):
+			if name == prepList[index]:
+				ingObject.m_IngPreparation[index] = ''
+		
+		prepDescList = ingObject.m_IngPrepDescriptor
+		for index in range(0,len(prepDescList)):
+			if name == prepDescList[index]:
+				ingObject.m_IngPrepDescriptor[index] = ''
+
+regexQuantity = re.compile(r'(\d+\/?\d?)\s*([a-z]*)', re.IGNORECASE)
+# Method to extract indredient names, quantities, descriptors, etc
+def identifyIngredients(ingredientsDict):
+	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers','sauce','oil','fruits']
+	proteinCatgs = ['poultry','meats','eggs','seafood','vegetarian','beans']
+	vegeCatgs = ['regular', 'onions', 'roots', 'radish', 'squash', 'tubers']
+	ingData = open('vocabulary/ingredientTypes.json')
+	json_data = json.load(ingData)
+	for key in  ingredientsDict:
+		breakFlag = 0
+		ingObject = RecipeRepresentation.Ingredients()
+		for category in categories:
+			if(category == 'proteins'):
+				for proteinType in proteinCatgs:
+					proteinList = json_data[category][proteinType]
+					for protein in proteinList:
+						if protein in key.lower():
+							ingObject.m_IngName = protein
+							ingObject.m_IngType = proteinType
+							breakFlag = 1
+							break
+					if breakFlag == 1:
+						break			
+			elif(category == 'vegetables'):
+				for vegeType in vegeCatgs:
+					vegeList = json_data[category][vegeType]		
+					for vege in vegeList:
+						if vege in key.lower():
+							ingObject.m_IngName = vege
+							ingObject.m_IngType = vegeType
+							breakFlag = 1
+							break
+					if breakFlag == 1:
+						break
+			else:
+				ingCategory = json_data[category]
+				for ing in ingCategory:
+					if ing in key.lower():
+						ingObject.m_IngName = ing
+						ingObject.m_IngType = category
+						breakFlag = 1
+			if breakFlag == 1:
+				break
+		searchResult = regexQuantity.findall(ingredientsDict[key])
+	 	for result in searchResult:
+	 		ingObject.m_IngQuantity = result[0]
+	 		ingObject.m_IngMeasurement = result[1]
+		tokens = wordTokenizer.tokenize(key.lower())
+		posTags = nltk.pos_tag(tokens)
+		name = ''
+		descriptor = []
+		preparation = []
+		prepDescriptor = []
+		for (data,tag) in posTags:
+			if(tag == 'NN' or tag == 'NNS'):
+				name = name + data + ' ' 
+			elif(tag == 'JJ'):
+				descriptor.append(data)
+			elif(tag == 'VB' or tag == 'VBD' or tag == 'VBP' or tag == 'VBN' or tag == 'VBG' or tag == 'VBZ'):
+				preparation.append(data)
+			elif(tag == 'RB'):
+				prepDescriptor.append(data)
+		if(breakFlag == 0):		
+			ingObject.m_IngName = name[:len(name)-1]
+		ingObject.m_IngDescriptor = descriptor
+		ingObject.m_IngPreparation = preparation
+		ingObject.m_IngPrepDescriptor = prepDescriptor			
+		if(ingObject.m_IngName != ''):
+			ingredientList.append(ingObject)
+	ingData.close()	
+	removeDuplicates()	
+
+regExTools = re.compile(r'(in a|take a) ([a-z]*) ([a-z]*)', re.IGNORECASE)
 def identifyTools(directionsList):
 	f = open('vocabulary/tools.txt', 'r+')
 	knownTools = []
@@ -58,8 +143,8 @@ def identifyTools(directionsList):
 		  			toolObj.m_ToolQuantity = 1
 		  			toolsList.append(toolObj)
 	f.close()	  			 			
-
 regExMethods = re.compile(r'([a-z]+) with ([a-z]+)', re.IGNORECASE)
+
 
 def identifyCookingMethods(directionsList):
 	ingredients = []
@@ -70,7 +155,7 @@ def identifyCookingMethods(directionsList):
 	for tool in toolsList:
 		tools.append(tool.m_ToolName)
 
-	fprimary = open('vocabulary/primaryMethods.txt', 'r+')
+	fprimary = open('vocabulary/primaryMethods.txt', 'r')
 	primaryCookingMethods = []
 	for line in fprimary:
 		primaryCookingMethods.append(line.replace('\n',''))
@@ -78,163 +163,70 @@ def identifyCookingMethods(directionsList):
 	fsecondary = open('vocabulary/secondaryMethods.txt', 'r+')
 	secondaryCookingMethods = []
 	for line in fsecondary:
-		secondaryCookingMethods.append(line.replace('\n',''))	
-	
-	for instructions in directionsList:	
+		secondaryCookingMethods.append(line.replace('\n',''))
+
+	for instructions in directionsList:
 		sentences = sentenceTokenizer.tokenize(instructions)
-		for sentence in sentences:
-			for cookingMethod in primaryCookingMethods:
-				if cookingMethod in sentence.lower():
-					methodObject = RecipeRepresentation.Methods()
-					methodObject.m_MethodName = cookingMethod
-					methodObject.m_MethodType = 'primary'
-					for ingredient in ingredients:
-						if ingredient in sentence:
-							methodObject.m_ingredientUsed.append(ingredient)
-					for tool in tools:
-						if tool in sentence:
-							methodObject.m_toolsUsed.append(tool)		
-					cookingMethodsList.append(methodObject)		
-			for cookingMethod in secondaryCookingMethods:
-				if cookingMethod in sentence.lower():
-					methodObject = RecipeRepresentation.Methods()
-					methodObject.m_MethodName = cookingMethod
-					methodObject.m_MethodType = 'secondary'
-					for ingredient in ingredients:
-						if ingredient in sentence:
-							methodObject.m_ingredientUsed.append(ingredient)
-					for tool in tools:
-						if tool in sentence:
-							methodObject.m_toolsUsed.append(tool)
-					cookingMethodsList.append(methodObject)		
-		searchResult = regExMethods.findall(instructions)
-		for result in searchResult:
-			if result[1] in ingredients and result[0] != '':
-				methodObject = RecipeRepresentation.Methods()
-				methodObject.m_MethodName = result[0].lower()
-				methodObject.m_MethodType = 'secondary'
-				methodObject.m_ingredientUsed.append(result[1])
-				cookingMethodsList.append(methodObject)	
+		#for sentence in sentences:
 
-regexQuantity = re.compile(r'(\d+\/?\d?)\s*([a-z]*)', re.IGNORECASE)
+# def identifyCookingMethods(directionsList):
+# 	ingredients = []
+# 	for ingredient in ingredientList:
+# 		ingredients.append(ingredient.m_IngName)
 
-def identifyIngredients(ingredientsDict):
-	for key in  ingredientsDict:
-	 	searchResult = regexQuantity.findall(ingredientsDict[key])
-	 	ingObject = RecipeRepresentation.Ingredients()
-	 	for result in searchResult:
-	 		ingObject.m_IngQuantity = result[0]
-	 		ingObject.m_IngMeasurement = result[1]
-		tokens = wordTokenizer.tokenize(key.lower())
-		posTags = nltk.pos_tag(tokens)
-		name = ''
-		descriptor = ''
-		preparation = ''
-		prepDescriptor = ''
-		for (data,tag) in posTags:
-			if(tag == 'NN' or tag == 'NNS' or data in exceptionNouns):
-				name = name + data + ' ' 
-			elif(tag == 'JJ' or data not in exceptionNouns):
-				descriptor = descriptor + data + ','
-			elif(tag == 'VB' or tag == 'VBD' or tag == 'VBP' or tag == 'VBN' or tag == 'VBG' or tag == 'VBZ' or data not in exceptionNouns):
-				preparation = preparation + data + ','
-			elif(tag == 'RB' or data not in exceptionNouns):
-				prepDescriptor = prepDescriptor + data + ','
-		ingObject.m_IngName = name[:len(name)-1]
-		ingObject.m_IngDescriptor.append(descriptor[:len(descriptor)-1])
-		ingObject.m_IngPreparation.append(preparation[:len(preparation)-1])
-		ingObject.m_IngPrepDescriptor.append(prepDescriptor[:len(prepDescriptor)-1])			
-		if(ingObject.m_IngName != ''):
-			ingredientList.append(ingObject)
+# 	tools = []			
+# 	for tool in toolsList:
+# 		tools.append(tool.m_ToolName)
 
-def identifyIngredientType():
-	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers']
-	proteinCatgs = ['poultry','meats','eggs','seafood','vegetarian','beans']
-	vegeCatgs = ['regular', 'onions', 'roots', 'radish', 'squash', 'tubers']
-	ingData = open('vocabulary/ingredientTypes.json')
-	json_data = json.load(ingData)
-	for ingObject in ingredientList:
-		tokens = wordTokenizer.tokenize(ingObject.m_IngName)
-		for token in tokens:
-			breakFlag = 0
-			for category in categories:
-				#pdb.set_trace()
-				if(category == 'proteins'):
-					for proteinType in proteinCatgs:
-						proteinList = json_data[category][proteinType]
-						if token in proteinList:
-							ingObject.m_IngType = proteinType
-							breakFlag = 1
-							break
-					if breakFlag == 1:
-						breakFlag = 0
-						break
-				elif(category == 'vegetables'):
-					for vegeType in vegeCatgs:
-						vegeList = json_data[category][vegeType]		
-						if token in vegeList:
-							ingObject.m_IngType = vegeType
-							breakFlag = 1
-							break
-					if breakFlag == 1:
-						breakFlag = 0
-						break
-				else:
-					ingCategory = json_data[category]
-					if token in ingCategory:
-						ingObject.m_IngType = category
-						breakFlag = 1
-						break			
-	ingData.close()	
+# 	fprimary = open('vocabulary/primaryMethods.txt', 'r')
+# 	primaryCookingMethods = []
+# 	for line in fprimary:
+# 		primaryCookingMethods.append(line.replace('\n',''))
+
+# 	fsecondary = open('vocabulary/secondaryMethods.txt', 'r+')
+# 	secondaryCookingMethods = []
+# 	for line in fsecondary:
+# 		secondaryCookingMethods.append(line.replace('\n',''))	
+	
+# 	for instructions in directionsList:	
+# 		sentences = sentenceTokenizer.tokenize(instructions)
+# 		for sentence in sentences:
+# 			#pdb.set_trace()
+# 			for cookingMethod in primaryCookingMethods:
+# 				if cookingMethod in sentence.lower():
+# 					methodObject = RecipeRepresentation.Methods()
+# 					methodObject.m_MethodName = cookingMethod
+# 					methodObject.m_MethodType = 'primary'
+# 					for ingredient in ingredients:
+# 						if ingredient in sentence.lower():
+# 							methodObject.m_ingredientUsed.append(ingredient)
+# 					for tool in tools:
+# 						if tool in sentence:
+# 							methodObject.m_toolsUsed.append(tool)		
+# 					cookingMethodsList.append(methodObject)		
+# 			for cookingMethod in secondaryCookingMethods:
+# 				if cookingMethod in sentence.lower():
+# 					methodObject = RecipeRepresentation.Methods()
+# 					methodObject.m_MethodName = cookingMethod
+# 					methodObject.m_MethodType = 'secondary'
+# 					for ingredient in ingredients:
+# 						if ingredient in sentence:
+# 							methodObject.m_ingredientUsed.append(ingredient)
+# 					for tool in tools:
+# 						if tool in sentence:
+# 							methodObject.m_toolsUsed.append(tool)
+# 					cookingMethodsList.append(methodObject)		
+# 		searchResult = regExMethods.findall(instructions)
+# 		for result in searchResult:
+# 			if result[1] in ingredients and result[0] != '':
+# 				methodObject = RecipeRepresentation.Methods()
+# 				methodObject.m_MethodName = result[0].lower()
+# 				methodObject.m_MethodType = 'secondary'
+# 				methodObject.m_ingredientUsed.append(result[1])
+# 				cookingMethodsList.append(methodObject)	
 
 
-
-
-
-# def identifyIngredientType():
-# 	json_data = open('vocabulary/ingredientTypes.json')
-# 	ingData = json.load(json_data)
-# 	spices = ingData['spices']
-# 	protPoultry = ingData['proteins']['poultry']
-# 	protMeats = ingData['proteins']['meats']
-# 	protEggs = ingData['proteins']['eggs']
-# 	protSeafood = ingData['proteins']['seafood']
-# 	protVeg = ingData['proteins']['vegetarian']
-# 	protBeans = ingData['proteins']['beans']
-# 	dairy = ingData['dairy']
-# 	nuts = ingData['nuts']
-# 	breads = ingData['breads']
-# 	for ingObject in ingredientList:
-# 		tokens = wordTokenizer.tokenize(ingObject.m_IngName)
-# 		for token in tokens:
-# 			if token in spices:
-# 				ingObject.m_IngType = 'spices'
-# 			elif token in dairy: 	
-# 		 		ingObject.m_IngType = 'dairy'
-# 		 	elif token in protPoultry:
-# 		 		ingObject.m_IngType = 'poultry'
-# 		 	elif token in protMeats:
-# 		 		ingObject.m_IngType = 'meat'
-# 		 	elif token in protEggs:
-# 		 		ingObject.m_IngType = 'eggs'
-# 		 	elif token in protSeafood:
-# 		 		ingObject.m_IngType = 'seafood'
-# 		 	elif token in protVeg:
-# 		 		ingObject.m_IngType = 'vegetarian'					
-# 		 	elif token in protBeans:
-# 		 		ingObject.m_IngType = 'beans'
-# 		 	elif token in nuts:
-# 		 		ingObject.m_IngType = 'nuts'
-# 		 	elif token in breads:	
-# 		 		ingObject.m_IngType = 'breads'
-# 		 	elif token == 'oil':
-# 		 		ingObject.m_IngType = 'oil'
-# 		 	else:
-# 		 		ingObject.m_IngType = 'unknown'			
-# 	json_data.close()	 		
-
-
-transformMethodList = []
+ 		
 
 # def transformCookingMethod():
 # 	catTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
@@ -252,18 +244,13 @@ transformMethodList = []
 # 		if methodObject.m_MethodType == 'secondary':
 # 			continue
 # 		else:
-# 			for ingredient in methodObject.m_ingredientUsed:
-# 				for ingObject in ingredientList:
-# 					if ingredient == ingObject.m_IngName:
-# 						ingType = ingObject.m_IngType
-# 						break
-# 				if ingType == "unknown":
-# 					continue
-# 				else:
-					
-							
-
-
-			
-
-
+# 			for rule in ruleTypes:
+# 				transformList = methodData['rules'][methodObject.m_MethodName]
+# 				for ingredient in methodObject.m_ingredientUsed:
+# 					for ingObject in ingredientList:
+# 		 				if ingObject.m_IngName == ingredient:
+# 							ingType = ingObject.m_IngType
+# 							for transform in transformList:
+# 								catList = methodData['categories'][transform]
+# 								if ingType in catList
+# 									m_MethodName.m_optionalMethods.append(transform)

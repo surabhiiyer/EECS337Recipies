@@ -1,6 +1,6 @@
 {
 	"spices": ["bay leaves","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger",
-		"kosher salt","salt","nutmeg","oregano","paprika","red pepper","rosemary","sesame seeds","thyme","vanilla extract","allspice","ancho chilies",
+		"kosher salt","salt","nutmeg","oregano","paprika","red pepper","rosemary","sesame seeds","thyme","vanilla extract","allspice","ancho chilies", "parsley",
 		"anise seeds","cajun", "blackening seasoning","caraway seeds","cardamom","cardamom pods","celery salt","celery seed","chinese five-spice powder","cinnamon sticks",
 		"cloves","coriander","coriander","cumin seeds","fennel seeds","fenugreek seeds","fleur de sel","garam masala","herbes de provence","juniper berries","lemongrass",
 		"mustard powder","mustard seeds","nutmeg","poppy seeds","poultry seasoning","saffron","seafood seasoning","smoked paprika","star anise","szechuan peppercorns","turmeric","vanilla beans","wasabi powder","white peppercorns","turmeric"],
@@ -16,7 +16,8 @@
 	},
 	"dairy": ["milk","cheese","yogurt","butter"],
 	"nuts": ["almonds","cashews","hazelnuts","filberts","mixed nuts","peanuts","peanut butter","pecans","pistachios","pumpkin seeds","sesame seeds","sunflower seeds","walnuts"],
-	"breads": ["corn muffins", "crumpets", "fin crisp","gluten free muffins","hushpuppy","rye vita","pancakes","scones","sweet potato muffins","tortilla","pizza"],
+	"breads": ["corn muffins", "crumpets", "fin crisp","gluten free muffins","hushpuppy","rye vita","pancakes","scones","sweet potato muffins","tortilla","pizza","white bread","brown bread" ,"bagel","whole wheat bread","flatbread","baguette",
+			"bun","garlic bread","chapati","cornbread","crepe","crisp bread","bread crumbs","croutons","kulcha","naan","paratha","waffle","pretzel","roti","bread"],
 	"grains": ["rice", "brown rice", "pasta", "whole-wheat flour", "flour", "oatmeal", "barley", "cornmeal", "grits","maize","corn","sweetcorn"],
 	"vegetables" : {
 		"regular": ["artichoke", "arugula", "asparagus", "aubergine","eggplant","amaranth","bok choy","broccoflower","broccoli","brussels sprouts","cabbage","calabrese","radicchio","rhubarb", "tomato","water chestnut","watercress",
@@ -28,5 +29,13 @@
 		"squash" : ["corn squash","butternut squash","banana squash","courgette", "zucchini","cucumber","delicata","gem squash","hubbard squash","marrow","squash","patty pans","pumpkin","spaghetti squash"],
 		"tubers" : ["jicama","jerusalem artichoke","potato","sweet potato","taro","yam"]	
 	},
-	"peppers": ["green pepper", "red pepper",  "bell pepper", "pimento","chili pepper","capsicum", "jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"]
+	"peppers": ["green pepper", "red pepper",  "bell pepper", "pimento","chili pepper","capsicum", "jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"],
+	"sauce" : ["pesto", "hummus", "mayonnaise", "mustard sauce", "tomato sauce", "barbecue sauce", "bean sauce"],
+	"oil" : ["almond oil","avocado oil","butter","clarified butter","canola oil","coconut oil","rice bran oil","corn oil","cottonseed oil","flaxseed oil","grape seed oil","hemp oil","lard",
+		"margarine","mustard oil","margarine","macadamia oil","olive oil","palm oil","peanut oil","pumpkin seed oil","safflower oil","sesame oil","soybean oil","sunflower oil","tea seed oil","walnut oil","vegetable oil","oil"],
+	"fruits" : ["apple","apricot","banana","bilberry","blackberry","blackcurrant","blueberry","boysenberry","cantaloupe","currant","cherry","cherimoya","cloudberry","coconut","cranberry","damson","date","dragonfruit","durian","elderberry","feijoa",
+		"fig","goji berry","gooseberry","grape","raisin","grapefruit","guava","huckleberry","honeydew","jackfruit","jambul","jujube","kiwi fruit","kumquat","lemon","lime","loquat","lychee","mango","marion berry","melon","cantaloupe","honeydew",
+		"watermelon","rock melon","miracle fruit","mulberry","nectarine","olive","orange","clementine","mandarine","blood orange","tangerine","papaya","passionfruit","peach","pear","williams pear","bartlett pear","persimmon","physalis","plum","prune",
+		"pineapple","pomegranate","pomelo","purple mangosteen","quince","raspberry","western raspberry","rambutan","redcurrant","salal berry","salmon berry","satsuma","star fruit","strawberry","tamarillo","ugli fruit","watermelon"]	
+
 }
