@@ -32,6 +32,7 @@ def TransformationChoice():
 # French, Mexican, American Chinese, Indian, Itallian, Middle East 
 def TranformToIndian(nameType_dict): 
 	ingObject = RecipeRepresentation.Transformed_Indian()
+	new_ing_list = [] 
 	print "### Transfroming to Indian ####"
 	flag = 0
 	count = 0 
