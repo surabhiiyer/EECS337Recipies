@@ -31,49 +31,71 @@ def getDirections(r_url):
 		dir_list.append(d.string)
 	return dir_list
 
-def scrape(r_url): 
+
+
+def getPrepTimeRating(r_url): 
+	prepTime = 0.0
+	readyTime = 0.0
+	cookTime = 0.0
+	rating = 0.0
+	title = ''
 	response = urllib2.urlopen(r_url)
 	html_content = response.read()
 	soup = BeautifulSoup(html_content)
-
-	#finding directions 
-	all_directions = soup.find_all("span",{"class":"plaincharacterwrap break"})
-	#directions list
-	dir_list = [] 
-	print "printing directions"
-	for d in all_directions: 
-		dir_list.append(d.string)
-
-	print "Directions:"
-	print dir_list
-
 	#Prep time 
 	prep_time = soup.find("span",{"id":"prepMinsSpan"})
 	if(prep_time):
 		prepTime = prep_time.string
-		print "Prep Time", prepTime 
-	else: 
-		print "Prep Time not available on the html page"
 
 	#Ready-In
-	ready_in = soup.find("span",{"id":"totalMinsSpan"})
-	if(ready_in): 
-		readyIn  = ready_in.string 
-		print "Read In", readyIn
-	else:
-		print "Ready In time not available on the html page"
+	ready_time = soup.find("span",{"id":"totalMinsSpan"})
+	if(ready_time): 
+		readyTime  = ready_time.string 
 
 	#Cook time 
 	cook_time = soup.find("span",{"id":"cookHoursSpan"})
 	if(cook_time):
 		cookTime = cook_time.string
-		print "cook_time", cookTime
-	else: 
-		print "Cook Time not found in the html page"
+
 	#Ratings 
-	rating_value = soup.find("meta",{"itemprop":"ratingValue"})
-	r_val = rating_value
-	print "Ratings: ", r_val
+	rating = soup.find("meta",{"itemprop":"ratingValue"})
+
+	Title = soup.find("h1",id='itemTitle')
+	title = Title.string
+
+	print title
+	# heading = ''
+	# if(title != ''):
+	# 	heading = heading + title + "."
+	# if(prepTime != 0.0):
+	# 	heading = heading + " Preparation time:" + str(prepTime ) + "."
+	# if(cookTime != 0.0):
+	# 	heading = heading + " Cooking time:" + str(cookTime) + "."
+	# if(readyTime != 0.0):
+	# 	heading = heading + " Ready in " + str(readyTime) + "."
+	# print heading
+	# if(rating != 0.0):
+	# 	rating = 'Rating: ' + str(rating)
+	# 	print rating
+
+#create a dictionary of tool names from Wikipedia
+def populateTools():
+	f = open('vocabulary/tools.txt','w');
+	html_source = urllib2.urlopen("http://en.wikipedia.org/wiki/Category:Cooking_utensils")
+	wikiPage = BeautifulSoup(html_source)
+	div = wikiPage.find('div', id='mw-pages')
+	alphabeticalList = div.findAll('ul')
+	firstItemSkipped = False;
+	for listIndex in alphabeticalList:
+		if(firstItemSkipped == False):
+			firstItemSkipped = True
+			continue;
+		hyperlinks = listIndex.findAll('a')
+		for hyperlink in hyperlinks:
+			utensilName = hyperlink.string.lower()
+			utensilName = re.sub(r'\(.*\)',r'',utensilName)
+			f.write(utensilName+'\n')
+	f.close()	
 
 
 
