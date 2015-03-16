@@ -148,7 +148,7 @@ def identifyIngredients(ingredientsDict):
 			ingredientList.append(ingObject)
 
 def identifyIngredientType():
-	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers']
+	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers','sauces']
 	proteinCatgs = ['poultry','meats','eggs','seafood','vegetarian','beans']
 	vegeCatgs = ['regular', 'onions', 'roots', 'radish', 'squash', 'tubers']
 	ingData = open('vocabulary/ingredientTypes.json')

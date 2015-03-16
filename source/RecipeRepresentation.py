@@ -29,3 +29,12 @@ class Methods:
 		self.m_MethodType = '' #Cooking method type - Primary or Secondary
 		self.m_ingredientUsed = [] #Ingredient on which the method has to be applied
 		self.m_toolsUsed = []
+
+class TransformedIngredients: 
+	def __init__(self): 
+		self.m_IngName = '' 
+		self.m_IngType = ''
+		self.m_IngMeasurement = ''
+		self.m_IngDescriptor = []
+		self.m_IngPreparation = []
+		self.m_IngPrepDescriptor = []

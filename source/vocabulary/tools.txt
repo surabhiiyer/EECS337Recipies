@@ -99,3 +99,6 @@ zyliss
 bowl
 skillet
 frying pan
+medium
+soup
+pot
