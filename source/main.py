@@ -109,6 +109,9 @@ if __name__ == "__main__":
 			elif choice == 3: 
 				print "You typed 3. Transforming to Italian\n"
 				userInput.TransformToItalian(nameType_dict)
+			elif choice == 4: 
+				print "You typed 4. Transforming to East Asian\n"
+				userInput.TransformToEastAsian(nameType_dict)
 			else: 
 				print "Please enter the correct values"
 		if option == 3:

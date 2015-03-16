@@ -31,6 +31,7 @@ def TransformationCuisine():
 	print "1. Transform to Indian"
 	print "2. Transform to Mexican"
 	print "3. Transform to Italian"
+	print "4. Transfrom to East Asian"
 	choice_number = raw_input()
 	return choice_number 
 
@@ -38,6 +39,7 @@ def TransformationCuisine():
 def TranformToIndian(nameType_dict): 
 	ingObject = RecipeRepresentation.Transformed_Indian()
 	print "### Transfroming to Indian ####"
+	new_ing_list = []
 	flag = 0
 	count = 0 
 	print len(nameType_dict)
@@ -51,10 +53,18 @@ def TranformToIndian(nameType_dict):
 					ingObject.m_IngName = i 
 	 				print "Not changed","\n"
 	 				flag = 1
-	 			if flag == 0: 
-	 				new_type = random.choice(json_data["spices"]["indian"]);  
-	 				ingObject.m_IngName = new_type
-	 				print "changed to ", new_type,"\n"
+	 		if flag == 0: 
+	 			new_type = random.choice(json_data["spices"]["indian"]);  
+	 			ingObject.m_IngName = new_type
+	 			print "changed to ", new_type,"\n"
+	 	elif(ing_type == "breads"): 
+	 		new_type = random.choice(json_data["indianBreads"])  
+	 		ingObject.m_IngName = new_type
+	 		print old_ing, "changed to ",new_type,"\n"
+	 	elif(ing_type == "herbs"): 
+	 		new_type = random.choice(json_data["indianHerbs"])  
+	 		ingObject.m_IngName = new_type
+	 		print old_ing, "changed to ", new_type,"\n"
 	 	else:
 	 		ingObject.m_IngName = old_ing
 	 		print "Not changed","\n"
@@ -76,10 +86,10 @@ def TransformToMexican(nameType_dict):
 	 				print "Not changed","\n"
 	 				ingObject.m_IngName = i 
 	 				flag = 1  
-	 			if flag == 0: 
-	 				new_type = random.choice(json_data["spices"]["mexican"])
-	 				ingObject.m_IngName = new_type
-	 				print "changed to ", new_type,"\n"
+ 			if flag == 0: 
+ 				new_type = random.choice(json_data["spices"]["mexican"])
+ 				ingObject.m_IngName = new_type
+ 				print "changed to ", new_type,"\n"
 	 	elif(ing_type == "sauces"): 
 	 		new_type = random.choice(json_data["sauces"]["mexican"]) 
 	 		ingObject.m_IngName = new_type
@@ -93,7 +103,7 @@ def TransformToMexican(nameType_dict):
 	 		ingObject.m_IngName = "tortillas"
 	 		print old_ing, "changed to ", "tortillas","\n"
 	 	elif(ing_type == "herbs"): 
-	 		new_type = random.choice(json_data["MexicanHerbs"])  
+	 		new_type = random.choice(json_data["mexicanHerbs"])  
 	 		ingObject.m_IngName = new_type
 	 		print old_ing, "changed to ", new_type,"\n"
 	 	else:
@@ -119,10 +129,10 @@ def TransformToItalian(nameType_dict):
 					ingObject.m_IngName = i 
 	 				print "Not changed","\n"
 	 				flag = 1  
-	 			if flag == 0: 
-	 				new_type = random.choice(json_data["spices"]["italian"])
-	 				ingObject.m_IngName = new_type
-	 				print "changed to ", new_type,"\n"
+ 			if flag == 0: 
+ 				new_type = random.choice(json_data["spices"]["italian"])
+ 				ingObject.m_IngName = new_type
+ 				print "changed to ", new_type,"\n"
 	 	elif(ing_type == "sauces"): 
 	 		new_type = random.choice(json_data["sauces"]["italian"]) 
 	 		ingObject.m_IngName = new_type
@@ -137,6 +147,48 @@ def TransformToItalian(nameType_dict):
 	 		print old_ing, "changed to ", new_type,"\n"
 	 	elif(ing_type == "herbs"): 
 	 		new_type = random.choice(json_data["italianHerbs"])  
+	 		ingObject.m_IngName = new_type
+	 		print old_ing, "changed to ", new_type,"\n"
+	 	else:
+	 		ingObject.m_IngName = old_ing
+	 		print "Not changed","\n"
+	 	count = count + 1
+	 	new_ing_list.append(ingObject.m_IngName)
+
+
+def TransformToEastAsian(nameType_dict):
+	print "### Transfroming to Mexican ####"
+	flag = 0
+	count = 0 
+	new_ing_list = []
+	ingObject = RecipeRepresentation.Transformed_EastAsian()
+	for old_ing,ing_type in nameType_dict.items(): 
+		print count
+		print old_ing 
+		if(ing_type == "spices"): 
+			for i in json_data["spices"]["general"]: 
+				if i == old_ing: 
+					ingObject.m_IngName = i 
+	 				print "Not changed","\n"
+	 				flag = 1  
+ 			if flag == 0: 
+ 				new_type = random.choice(json_data["spices"]["eastasian"])
+ 				ingObject.m_IngName = new_type
+ 				print "changed to ", new_type,"\n"
+	 	elif(ing_type == "sauces"): 
+	 		new_type = random.choice(json_data["sauces"]["eastasian"]) 
+	 		ingObject.m_IngName = new_type
+	 		print "changed to ", new_type,"\n"
+	 	elif(ing_type == "roots" or ing_type == "tubers" or ing_type == "squash" or ing_type == "radish" or ing_type == "regular"): 
+	 		new_type = random.choice(json_data["proteins"]["beans"])  
+	 		ingObject.m_IngName = new_type
+	 		print "changed to ", new_type,"\n"
+	 	elif(ing_type == "poultry"): 
+	 		new_type = random.choice(json_data["proteins"]["seafood"]) 
+	 		ingObject.m_IngName = new_type 
+	 		print old_ing, "changed to ", new_type,"\n"
+	 	elif(ing_type == "herbs"): 
+	 		new_type = random.choice(json_data["eastasianHerbs"])  
 	 		ingObject.m_IngName = new_type
 	 		print old_ing, "changed to ", new_type,"\n"
 	 	else:
@@ -172,7 +224,7 @@ def TransformToVegan(nameType_dict):
 		print ing
 		print count 
 		if(ing_type == "meats" or ing_type == "poultry" or ing_type == "eggs" or ing_type == "seafood"):
-			new_type=random.choice(json_data["vegetables"]["regular"])
+			new_type=random.choice(json_data["proteins"]["vegetarian"])
 			ingObject.m_IngName = new_type
 			print "Changed to ",new_type,"\n"
 		elif(ing_type == "dairy"):

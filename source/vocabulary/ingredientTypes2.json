@@ -1,24 +1,28 @@
 {
 	"sauces":{
-		"eastasian":["doubanjiang","sweet bean sauce","hoisin sauce","oyster sauce","pouzu","mala sauce","soy sauce","sriracha sauce","ssamjang","XO sauce","lobster sauce","shacha sauce",
+		"eastasian":["doubanjiang","sweet bean sauce","hoisin sauce","oyster sauce","pouzu","mala sauce","soy sauce","sriracha sauce","ssamjang","sauce","lobster sauce","shacha sauce",
     "siu haau sauce","sweet and sour sauce","tianmianjiang","teriyaki","budu","fish sauce","garum","nam chim","nam phrik","padaek","pla ra","sambal","satay sauce",
     "peanut sauce","sweet soy sauce","tentsuyu"],
     	"italian":["Amatriciana sauce","Arrabbiata sauce","Genovese sauce","Green sauce","Gremolata","Bechamel sauce","Bigoli",
 "Bolognese sauce","Cacio e pepe","Carbonara","Checca sauce","Clam sauce"], 
 		"mexican":["Buffalo","Cholula Hot Sauce","Green sauce","Mole sauce","Salsa","Valentina"]},
 	"spices":{
-		"indian": ["saffron","poppy seeds","sesame seeds","garam masala","cloves","coriander","coriander","cumin seeds","fennel seeds","fenugreek seeds","mustard powder","mustard seeds","nutmeg","bay leaves","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger","caraway seeds","cardamom","cardamom pods","lemongrass","cinnamon sticks","turmeric","saffron","anise seeds"],
+		"indian": ["saffron","poppy seeds","sesame seeds","garam masala","cloves","coriander","cumin seeds","fennel seeds","fenugreek seeds","mustard powder","mustard seeds","nutmeg","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger","caraway seeds","cardamom","cardamom pods","cinnamon sticks","turmeric","anise seeds"],
 		"italian": ["rosemary","thyme","oregano","parsley","sage","juniper berries"],
 		"chinese": ["wasabi powder","szechuan peppercorns","chinese five-spice powder","star anise"],
 		"mexican": ["paprika","red pepper","smoked paprika","ancho chilies"],
 		"american": ["poultry seasoning","seafood seasoning","vanilla beans","vanilla extract","blackening seasoning","celery salt","celery seed"],
 		"french":["cajun","fleur de sel","herbes de provence"],
+		"eastasian":["star anise","ginger","hot mustard","sichuan peppercorns","five spice powder","chinese chives"],
 		"general":["white peppercorns","salt","kosher salt"],
 		"middle eastern": ["allspice"]
 		},
 	"italianBreads":["Pane di Lariano","Pane Casareccio","Pane Siciliano","Rosette","Ciabatta","Pane di Genzano","Focaccia Ligure","Taralli","Friselle","Focaccia al Pomodoro","Ciambella","Pane Casareccio","Pane di Matera, La Corna","Pane di Matera","Schuttelbrot","Pane di Segale"],
+	"indianBreads":["Naan","parata","roti","dosa","kulchas","puri","rumali roti"],
 	"italianHerbs":["Basil","Bay leaf","Marjoram","Mint","Oregano","Parsley","Rosemary","Sage"],	
 	"mexicanHerbs":["Basil","Bay leaf","Cilantros"],	
+	"eastasianHerbs":["Kaffir Lime Citrus Hystrix","Vietnamese Coriander Polygonum odoratum","Lemon Grass  Cymbopogon flexuosus","Coriander Coriandrum sativum","Thai Basil","Mint Mentha Piperita","Oriental Chives"],
+	"indianHerbs":["bay leaves","coriander","lemongrass","curry leaves"], 
 	"proteins":{
 		"poultry": ["chicken","duck","goose","turkey","ground chicken","ground turkey"],
 		"meats": ["beef","ham","lamb","pork","veal","bison","rabbit","venison","liver","giblets"],
