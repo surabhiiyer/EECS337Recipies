@@ -1,0 +1,47 @@
+{
+	"sauces":{
+		"eastasian":["doubanjiang","sweet bean sauce","hoisin sauce","oyster sauce","pouzu","mala sauce","soy sauce","sriracha sauce","ssamjang","XO sauce","lobster sauce","shacha sauce",
+    "siu haau sauce","sweet and sour sauce","tianmianjiang","teriyaki","budu","fish sauce","garum","nam chim","nam phrik","padaek","pla ra","sambal","satay sauce",
+    "peanut sauce","sweet soy sauce","tentsuyu"],
+    	"italian":["Amatriciana sauce","Arrabbiata sauce","Genovese sauce","Green sauce","Gremolata","Bechamel sauce","Bigoli",
+"Bolognese sauce","Cacio e pepe","Carbonara","Checca sauce","Clam sauce"], 
+		"mexican":["Buffalo","Cholula Hot Sauce","Green sauce","Mole sauce","Salsa","Valentina"]},
+	"spices":{
+		"indian": ["saffron","poppy seeds","sesame seeds","garam masala","cloves","coriander","coriander","cumin seeds","fennel seeds","fenugreek seeds","mustard powder","mustard seeds","nutmeg","bay leaves","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger","caraway seeds","cardamom","cardamom pods","lemongrass","cinnamon sticks","turmeric","saffron","anise seeds"],
+		"italian": ["rosemary","thyme","oregano","parsley","sage","juniper berries"],
+		"chinese": ["wasabi powder","szechuan peppercorns","chinese five-spice powder","star anise"],
+		"mexican": ["paprika","red pepper","smoked paprika","ancho chilies"],
+		"american": ["poultry seasoning","seafood seasoning","vanilla beans","vanilla extract","blackening seasoning","celery salt","celery seed"],
+		"french":["cajun","fleur de sel","herbes de provence"],
+		"general":["white peppercorns","salt","kosher salt"],
+		"middle eastern": ["allspice"]
+		},
+	"italianBreads":["Pane di Lariano","Pane Casareccio","Pane Siciliano","Rosette","Ciabatta","Pane di Genzano","Focaccia Ligure","Taralli","Friselle","Focaccia al Pomodoro","Ciambella","Pane Casareccio","Pane di Matera, La Corna","Pane di Matera","Schuttelbrot","Pane di Segale"],
+	"italianHerbs":["Basil","Bay leaf","Marjoram","Mint","Oregano","Parsley","Rosemary","Sage"],	
+	"mexicanHerbs":["Basil","Bay leaf","Cilantros"],	
+	"proteins":{
+		"poultry": ["chicken","duck","goose","turkey","ground chicken","ground turkey"],
+		"meats": ["beef","ham","lamb","pork","veal","bison","rabbit","venison","liver","giblets"],
+		"eggs": ["chicken eggs","duck eggs"],
+		"seafood": ["catfish","cod","flounder","haddock","halibut","herring","mackerel","pollock","porgy","salmon","sea bass","snapper","swordfish",
+			"trout","tuna","clams","crab","crayfish","lobster","mussels","octopus","oysters","scallops","squid","calamari","shrimp"],
+		"vegetarian" : ["tofu","cottage cheese","veggie burgers","tempeh","texturized vegetable protein"],
+		"beans": ["bean burgers","black beans","black-eyed peas","chickpeas","falafel","kidney beans","lentils","lima beans",
+			"navy beans","pinto beans","soy beans","split peas","white beans","peas"]
+		},
+	"dairy": ["milk","cheese","yogurt","butter"],
+	"nuts": ["almonds","cashews","hazelnuts","filberts","mixed nuts","peanuts","peanut butter","pecans","pistachios","pumpkin seeds","sesame seeds","sunflower seeds","walnuts"],
+	"breads": ["corn muffins", "crumpets", "fin crisp","gluten free muffins","hushpuppy","rye vita","pancakes","scones","sweet potato muffins","tortilla","pizza"],
+	"grains": ["rice", "brown rice", "pasta", "whole-wheat flour", "flour", "oatmeal", "barley", "cornmeal", "grits","maize","corn","sweetcorn"],
+	"vegetables" : {
+		"regular": ["artichoke", "arugula", "asparagus", "aubergine","eggplant","amaranth","bok choy","broccoflower","broccoli","brussels sprouts","cabbage","calabrese","radicchio","rhubarb", "tomato","water chestnut","watercress",
+			"cannabis","carrots","cauliflower","celery","chard","collard greens","corn salad","endive","fiddleheads","frisee","kale","kohlrabi","lettuce","mushrooms","mustard greens","nettles","new zealand spinach","okra",
+			"salsify","skirret","spinach","topinambur"],
+		"onions" : ["chives","garlic","leek allium porrum","onion","shallot", "green onion", "scallion"],
+		"roots" : ["beetroot","beet","mangel-wurzel","carrot","celeriac","daikon","ginger","parsnip","rutabaga","turnip"],
+		"radish" : ["swede", "rutabaga","turnip","wasabi","horseradish","white radish"],
+		"squash" : ["corn squash","butternut squash","banana squash","courgette", "zucchini","cucumber","delicata","gem squash","hubbard squash","marrow","squash","patty pans","pumpkin","spaghetti squash"],
+		"tubers" : ["jicama","jerusalem artichoke","potato","sweet potato","taro","yam"]
+	}, 
+	"peppers":["green pepper", "red pepper","bell pepper","pimento","chili pepper","capsicum","jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"]
+}

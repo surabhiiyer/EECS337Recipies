@@ -25,8 +25,42 @@ class Tools:
 
 class Methods:
 	def __init__(self):
-		self.m_MethodName = '' #Method name
+		self.m_MethodName = [] #Method name
 		self.m_MethodType = '' #Cooking method type - Primary or Secondary
 		self.m_ingredientUsed = [] #Ingredient on which the method has to be applied
 		self.m_toolsUsed = []
-		self.m_optionalMethods = []
+		self.m_time = 0
+
+class TransformMethods:
+	def __init__(self):
+		self.m_methodName = []
+		self.m_ingredient = ''
+		self.m_originalMethod = ''	
+		
+class Transformed_Indian: 
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Italian: 
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Mexican: 
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Vegetarian:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_NonVegetarian:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Vegan:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+
+
+
