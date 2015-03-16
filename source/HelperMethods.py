@@ -20,8 +20,9 @@ stopWordsList = stopwords.words('english')
 ingredientList = []
 cookingMethodsList = []
 toolsList = []
+transformMethodList= []
 
-def removeDuplicates():
+def removeDuplicatesInIngredients():
 	for ingObject in ingredientList:
 		name = ingObject.m_IngName
 		descrptorList = ingObject.m_IngDescriptor
@@ -42,7 +43,7 @@ def removeDuplicates():
 regexQuantity = re.compile(r'(\d+\/?\d?)\s*([a-z]*)', re.IGNORECASE)
 # Method to extract indredient names, quantities, descriptors, etc
 def identifyIngredients(ingredientsDict):
-	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers','sauce','oil','fruits']
+	categories = ['spices','proteins','dairy','nuts','breads','grains','vegetables','peppers','sauce','oil','fruits','herbs']
 	proteinCatgs = ['poultry','meats','eggs','seafood','vegetarian','beans']
 	vegeCatgs = ['regular', 'onions', 'roots', 'radish', 'squash', 'tubers']
 	ingData = open('vocabulary/ingredientTypes.json')
@@ -82,10 +83,12 @@ def identifyIngredients(ingredientsDict):
 						breakFlag = 1
 			if breakFlag == 1:
 				break
-		searchResult = regexQuantity.findall(ingredientsDict[key])
-	 	for result in searchResult:
-	 		ingObject.m_IngQuantity = result[0]
-	 		ingObject.m_IngMeasurement = result[1]
+		#Get measurements, descriptors, preparation, preparation descriptors
+		if(ingredientsDict[key] != ''):		
+			searchResult = regexQuantity.findall(ingredientsDict[key])
+	 		for result in searchResult:
+	 			ingObject.m_IngQuantity = result[0]
+	 			ingObject.m_IngMeasurement = result[1]
 		tokens = wordTokenizer.tokenize(key.lower())
 		posTags = nltk.pos_tag(tokens)
 		name = ''
@@ -103,14 +106,16 @@ def identifyIngredients(ingredientsDict):
 				prepDescriptor.append(data)
 		if(breakFlag == 0):		
 			ingObject.m_IngName = name[:len(name)-1]
+			ingObject.m_IngType = 'unknown'
 		ingObject.m_IngDescriptor = descriptor
 		ingObject.m_IngPreparation = preparation
 		ingObject.m_IngPrepDescriptor = prepDescriptor			
 		if(ingObject.m_IngName != ''):
 			ingredientList.append(ingObject)
 	ingData.close()	
-	removeDuplicates()	
+	removeDuplicatesInIngredients()	
 
+#Method to identify tools
 regExTools = re.compile(r'(in a|take a) ([a-z]*) ([a-z]*)', re.IGNORECASE)
 def identifyTools(directionsList):
 	f = open('vocabulary/tools.txt', 'r+')
@@ -142,19 +147,12 @@ def identifyTools(directionsList):
 		  			toolObj.m_ToolName = toolName
 		  			toolObj.m_ToolQuantity = 1
 		  			toolsList.append(toolObj)
-	f.close()	  			 			
-regExMethods = re.compile(r'([a-z]+) with ([a-z]+)', re.IGNORECASE)
+	f.close()
 
+regExMethods = re.compile(r'([a-z]+) with ([a-z]+)', re.IGNORECASE)
+regExTime = re.compile(r'([\d]+) minutes', re.IGNORECASE)
 
 def identifyCookingMethods(directionsList):
-	ingredients = []
-	for ingredient in ingredientList:
-		ingredients.append(ingredient.m_IngName)
-
-	tools = []			
-	for tool in toolsList:
-		tools.append(tool.m_ToolName)
-
 	fprimary = open('vocabulary/primaryMethods.txt', 'r')
 	primaryCookingMethods = []
 	for line in fprimary:
@@ -167,90 +165,67 @@ def identifyCookingMethods(directionsList):
 
 	for instructions in directionsList:
 		sentences = sentenceTokenizer.tokenize(instructions)
-		#for sentence in sentences:
+		for sentence in sentences:
+			tokens = wordTokenizer.tokenize(sentence.lower())
+			methodObject = RecipeRepresentation.Methods()
+			for ingObject in ingredientList:
+				if ingObject.m_IngName in tokens:
+					methodObject.m_ingredientUsed.append(ingObject)
 
-# def identifyCookingMethods(directionsList):
-# 	ingredients = []
-# 	for ingredient in ingredientList:
-# 		ingredients.append(ingredient.m_IngName)
+			for cookingMethod in primaryCookingMethods:
+				if cookingMethod in tokens:	 		
+					methodObject.m_MethodName.append(cookingMethod)
+					#methodObject.m_MethodType = 'primary'
 
-# 	tools = []			
-# 	for tool in toolsList:
-# 		tools.append(tool.m_ToolName)
+			for cookingMethod in secondaryCookingMethods:
+				if cookingMethod in tokens:	 		
+					methodObject.m_MethodName.append(cookingMethod)
 
-# 	fprimary = open('vocabulary/primaryMethods.txt', 'r')
-# 	primaryCookingMethods = []
-# 	for line in fprimary:
-# 		primaryCookingMethods.append(line.replace('\n',''))
+			for toolObject in toolsList:
+				if toolObject.m_ToolName in tokens:
+					methodObject.m_toolsUsed.append(toolObject)
 
-# 	fsecondary = open('vocabulary/secondaryMethods.txt', 'r+')
-# 	secondaryCookingMethods = []
-# 	for line in fsecondary:
-# 		secondaryCookingMethods.append(line.replace('\n',''))	
-	
-# 	for instructions in directionsList:	
-# 		sentences = sentenceTokenizer.tokenize(instructions)
-# 		for sentence in sentences:
-# 			#pdb.set_trace()
-# 			for cookingMethod in primaryCookingMethods:
-# 				if cookingMethod in sentence.lower():
-# 					methodObject = RecipeRepresentation.Methods()
-# 					methodObject.m_MethodName = cookingMethod
-# 					methodObject.m_MethodType = 'primary'
-# 					for ingredient in ingredients:
-# 						if ingredient in sentence.lower():
-# 							methodObject.m_ingredientUsed.append(ingredient)
-# 					for tool in tools:
-# 						if tool in sentence:
-# 							methodObject.m_toolsUsed.append(tool)		
-# 					cookingMethodsList.append(methodObject)		
-# 			for cookingMethod in secondaryCookingMethods:
-# 				if cookingMethod in sentence.lower():
-# 					methodObject = RecipeRepresentation.Methods()
-# 					methodObject.m_MethodName = cookingMethod
-# 					methodObject.m_MethodType = 'secondary'
-# 					for ingredient in ingredients:
-# 						if ingredient in sentence:
-# 							methodObject.m_ingredientUsed.append(ingredient)
-# 					for tool in tools:
-# 						if tool in sentence:
-# 							methodObject.m_toolsUsed.append(tool)
-# 					cookingMethodsList.append(methodObject)		
-# 		searchResult = regExMethods.findall(instructions)
-# 		for result in searchResult:
-# 			if result[1] in ingredients and result[0] != '':
-# 				methodObject = RecipeRepresentation.Methods()
-# 				methodObject.m_MethodName = result[0].lower()
-# 				methodObject.m_MethodType = 'secondary'
-# 				methodObject.m_ingredientUsed.append(result[1])
-# 				cookingMethodsList.append(methodObject)	
+			findResults = regExTime.findall(instructions)
+			for result in findResults:
+				methodObject.m_time = result[0]		
+			cookingMethodsList.append(methodObject)						
+
+#Method to transform cooking methods
+def transformCookingMethod():
+	catTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
+	'stew','simmer']
+	ruleTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
+	'stew','simmer']
+	toolTypes = ['bake','broil','boil','deep-fry','pan-fry','roast','poach','stir-fry',
+	'stew','simmer']
+	json_data = open('vocabulary/methodTransformation.json')
+	methodData = json.load(json_data)
+	categories = methodData['categories']
+	rules = methodData['rules']
+	tools = methodData['tools']
+	for methodObject in cookingMethodsList:
+		for methodName in methodObject.m_MethodName:
+			if methodName in catTypes:
+				transformList = methodData['rules'][methodName]
+				for ingObject in methodObject.m_ingredientUsed:
+					transformObj = RecipeRepresentation.TransformMethods()
+					for transform in transformList:
+						catList = methodData['categories'][transform]
+						if ingObject.m_IngType in catList:
+							transformObj.m_methodName.append(transform)
+					if(len(transformObj.m_methodName)>0):
+						transformObj.m_ingredient=ingObject
+						transformObj.m_originalMethod = methodName
+						transformMethodList.append(transformObj)
+	json_data.close()												
 
 
- 		
+def createDictionary():
+	ing_nameList = []
+	ing_typeList = []
+	for ingObj in ingredientList:
+		ing_nameList.append(ingObj.m_IngName)
+		ing_typeList.append(ingObj.m_IngType)
+	nameType_dict = dict(zip(ing_nameList,ing_typeList))
+	return nameType_dict	 
 
-# def transformCookingMethod():
-# 	catTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
-# 	'stew','simmer']
-# 	ruleTypes = ['bake','broil','barbecue','boil','deep-fry','pan-fry','grill','roast','poach','stir-fry',
-# 	'stew','simmer']
-# 	toolTypes = ['bake','broil','boil','deep-fry','pan-fry','roast','poach','stir-fry',
-# 	'stew','simmer']
-# 	json_data = open('vocabulary/methodTransformation.json')
-# 	methodData = json.load(json_data)
-# 	categories = methodData['categories']
-# 	rules = methodData['rules']
-# 	tools = methodData['tools']
-# 	for methodObject in cookingMethodsList:
-# 		if methodObject.m_MethodType == 'secondary':
-# 			continue
-# 		else:
-# 			for rule in ruleTypes:
-# 				transformList = methodData['rules'][methodObject.m_MethodName]
-# 				for ingredient in methodObject.m_ingredientUsed:
-# 					for ingObject in ingredientList:
-# 		 				if ingObject.m_IngName == ingredient:
-# 							ingType = ingObject.m_IngType
-# 							for transform in transformList:
-# 								catList = methodData['categories'][transform]
-# 								if ingType in catList
-# 									m_MethodName.m_optionalMethods.append(transform)

@@ -1,17 +1,17 @@
 {
 	"categories":{
-		"bake": ["poultry","meats","eggs","seafood","vegetarian","beans","vegetables","breads"],
-		"broil" : ["poultry","meats","eggs","seafood","vegetarian"],
-		"barbecue": ["poultry","meats","seafood","vegetarian","vegetables"],
-		"boil": ["poultry","meats","seafood","eggs","vegetables","beans","grains"],
+		"bake": ["poultry","meats","eggs","seafood","vegetarian","beans","regular", "onions", "roots","radish","squash","tubers","breads"],
+		"broil" : ["poultry","meats","eggs","seafood", "onions", "roots","radish","squash","tubers"],
+		"barbecue": ["poultry","meats","seafood","vegetarian", "onions", "roots","radish","squash","tubers"],
+		"boil": ["poultry","meats","seafood","eggs", "onions", "roots","radish","squash","tubers","beans","grains"],
 		"deep-fry" : ["poultry","meats","seafood","vegetarian"],
-		"pan-fry" : ["poultry","meats","seafood","vegetarian","vegetables","beans","eggs"],
+		"pan-fry" : ["poultry","meats","seafood","vegetarian", "onions", "roots","radish","squash","tubers","beans","eggs"],
 		"grill" : ["poultry","meats","seafood"],
 		"roast" : ["poultry","meats","seafood","vegetarian"],
-		"poach" : ["poultry","meats","seafood","vegetarian","eggs","vegtables","beans"],
-		"stir-fry" : ["poultry","meats","eggs","seafood","vegetarian","beans","vegetables"],
-		"stew" : ["poultry","meats","seafood","vegetables","beans"],
-		"simmer" : ["poultry","meats","seafood","vegetables","beans"]
+		"poach" : ["poultry","meats","seafood","vegetarian","eggs", "onions", "roots","radish","squash","tubers","beans"],
+		"stir-fry" : ["poultry","meats","eggs","seafood","vegetarian","beans", "onions", "roots","radish","squash","tubers"],
+		"stew" : ["poultry","meats","seafood", "onions", "roots","radish","squash","tubers","beans"],
+		"simmer" : ["poultry","meats","seafood", "onions", "roots","radish","squash","tubers","beans"]
 	},
 	"rules":{
 		"bake" : ["stir-fry","pan-fry","roast","grill"],
@@ -20,7 +20,7 @@
 		"boil" : ["stir-fry","pan-fry","deep-fry","grill","roast","poach"],
 		"deep-fry" : ["boil", "broil", "stir-fry", "pan-fry"],
 		"pan-fry" : ["bake", "barbecue", "boil", "deep-fry", "stir-fry"],
-		"grill" : ["stew", "roast", "bake", "broil", "barbecue", "boil"],
+		"grill" : ["stew", "roast", "bake", "broil", "barbecue"],
 		"roast" : ["bake", "barbecue", "boil", "grill", "stew", "simmer"],
 		"poach" : ["boil","stew","simmer"],
 		"stir-fry" : ["bake","barbecue","boil", "deep-fry", "pan-fry"],
@@ -31,13 +31,29 @@
 		"bake" : ["oven", "baking dish"],
 		"broil" : ["broiler pan"],
 		"boil" : ["stockpot", "saucepan", "boiling pan", "brat pan", "induction pan"],
+		"barbecue" : ["barbecue grill"],
 		"deep-fry" : ["frying pan"],
 		"pan-fry" : ["frying pan"],
 		"poach" : ["saucepan", "boiling pan"],
 		"roast" : ["roasting pan"],
 		"stir-fry" : ["frying pan"],
 		"stew" : ["stockpot"],
-		"simmer" : ["stockpot", "boiling pan"]
+		"simmer" : ["stockpot", "boiling pan"],
+		"grill" : ["grill grate"]
+	},
+	"time":{
+		"bake": 20,
+		"broil": 30,
+		"boil": 7,
+		"barbecue": 5,
+		"deep-fry": 4,
+		"pan-fry": 8,
+		"poach": 15,
+		"roast" : 30,
+		"stir-fry": 10,
+		"stew" :  40,
+		"simmer" : 20,
+		"grill": 5
 	}
 
 }

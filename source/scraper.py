@@ -10,11 +10,15 @@ def scrapeIngredients(r_url):
 	name_list = []
 	amount_list = []
 
-	ingredient_amount = soup.find_all("span",{"class":"ingredient-amount"})
-	for a in ingredient_amount: 
-		amount_list.append(a.string)
-		for x in a.findNext("span",{"class":"ingredient-name"}): 
-			name_list.append(x.string) 
+	tags = soup.find_all("p",{"itemprop":"ingredients"})
+	for tag in tags:
+		children =  tag.findChildren() 
+		if len(children) == 2:
+			amount_list.append(children[0].string)
+			name_list.append(children[1].string)
+		elif len(children) == 1:
+			amount_list.append('')
+			name_list.append(children[0].string)	
 	ingredient_dict = dict(zip(name_list, amount_list))
 	return ingredient_dict	
 
@@ -22,7 +26,6 @@ def getDirections(r_url):
 	response = urllib2.urlopen(r_url)
 	html_content = response.read()
 	soup = BeautifulSoup(html_content)
-
 	#finding directions 
 	all_directions = soup.find_all("span",{"class":"plaincharacterwrap break"})
 	#directions list
@@ -34,10 +37,10 @@ def getDirections(r_url):
 
 
 def getPrepTimeRating(r_url): 
-	prepTime = 0.0
-	readyTime = 0.0
-	cookTime = 0.0
-	rating = 0.0
+	prepTime = ''
+	readyTime = ''
+	cookTime = ''
+	rating = ''
 	title = ''
 	response = urllib2.urlopen(r_url)
 	html_content = response.read()
@@ -45,7 +48,7 @@ def getPrepTimeRating(r_url):
 	#Prep time 
 	prep_time = soup.find("span",{"id":"prepMinsSpan"})
 	if(prep_time):
-		prepTime = prep_time.string
+	 	prepTime = prep_time.string
 
 	#Ready-In
 	ready_time = soup.find("span",{"id":"totalMinsSpan"})
@@ -63,20 +66,19 @@ def getPrepTimeRating(r_url):
 	Title = soup.find("h1",id='itemTitle')
 	title = Title.string
 
-	print title
-	# heading = ''
-	# if(title != ''):
-	# 	heading = heading + title + "."
-	# if(prepTime != 0.0):
-	# 	heading = heading + " Preparation time:" + str(prepTime ) + "."
-	# if(cookTime != 0.0):
-	# 	heading = heading + " Cooking time:" + str(cookTime) + "."
-	# if(readyTime != 0.0):
-	# 	heading = heading + " Ready in " + str(readyTime) + "."
-	# print heading
-	# if(rating != 0.0):
-	# 	rating = 'Rating: ' + str(rating)
-	# 	print rating
+	heading = ''
+	if(title != ''):
+		heading = heading + title + "."
+	if(prepTime != ''):
+		heading = heading + " Preparation time:" + str(prepTime ) + "."
+	if(cookTime != ''):
+		heading = heading + " Cooking time:" + str(cookTime) + "."
+	if(readyTime != ''):
+		heading = heading + " Ready in " + str(readyTime) + "."
+	print heading
+	if(rating != ''):
+		rating = 'Rating: ' + str(rating)
+		print rating
 
 #create a dictionary of tool names from Wikipedia
 def populateTools():
