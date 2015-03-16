@@ -67,12 +67,10 @@ if __name__ == "__main__":
 	 	print ingredient.m_IngName + "("+ingredient.m_IngType+")"+ ":" + ingredient.m_IngQuantity + " " + ingredient.m_IngMeasurement
 	 	ing_nameList.append(ingredient.m_IngName)
 	 	ing_typeList.append(ingredient.m_IngType)
-	 	print c
 	 	for descriptor in ingredient.m_IngDescriptor:
 	 		print descriptor
 	 	for preparation in ingredient.m_IngPreparation:
 	 		print preparation
-	 	c = c+1
 	nameType_dict = dict(zip(ing_nameList,ing_typeList))
 	print len(nameType_dict)
 
@@ -92,16 +90,23 @@ if __name__ == "__main__":
 	print "##### CHOICE ####",user_in
 	choice = int(user_in)
 	if choice == 1: 
-		print "INGREDIENTS DICT "
+		print "You tyed 1. Transforming to Indian"
 		userInput.TranformToIndian(nameType_dict)
 		# call a transformation function from the file userInput
 	elif choice == 2: 
-		print "You typed 2.\n"
+		print "You typed 2. Transforming to Mexican\n"
 		userInput.TransformToMexican(nameType_dict)
 	elif choice == 3: 
-		print "You typed 3.\n"
-		#userInput.TransformToLowFat(()
-		# call a transformation function from the file userInput
+		print "You typed 3. Transforming to Italian\n"
+		userInput.TransformToItalian(nameType_dict)
+	elif choice == 4: 
+		print "You typed 4. Transforming to Vegan\n"
+		userInput.TransformToVegan(nameType_dict)
+	elif choice == 5: 
+		print "You typed 5. Transforming to Vegan\n"
+		userInput.TransformToNonVegetarian(nameType_dict)
+	elif choice == 6: 
+		print "You typed 6. Transforming to Vegetarian\n"
+		userInput.TransformToVegetarian(nameType_dict)
 	else: 
 		print "Please enter a valid input "
-		

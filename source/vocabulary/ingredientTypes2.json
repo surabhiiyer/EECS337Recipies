@@ -1,4 +1,11 @@
 {
+	"sauces":{
+		"eastasian":["doubanjiang","sweet bean sauce","hoisin sauce","oyster sauce","pouzu","mala sauce","soy sauce","sriracha sauce","ssamjang","XO sauce","lobster sauce","shacha sauce",
+    "siu haau sauce","sweet and sour sauce","tianmianjiang","teriyaki","budu","fish sauce","garum","nam chim","nam phrik","padaek","pla ra","sambal","satay sauce",
+    "peanut sauce","sweet soy sauce","tentsuyu"],
+    	"italian":["Amatriciana sauce","Arrabbiata sauce","Genovese sauce","Green sauce","Gremolata","Bechamel sauce","Bigoli",
+"Bolognese sauce","Cacio e pepe","Carbonara","Checca sauce","Clam sauce"], 
+		"mexican":["Buffalo","Cholula Hot Sauce","Green sauce","Mole sauce","Salsa","Valentina"]},
 	"spices":{
 		"indian": ["saffron","poppy seeds","sesame seeds","garam masala","cloves","coriander","coriander","cumin seeds","fennel seeds","fenugreek seeds","mustard powder","mustard seeds","nutmeg","bay leaves","black peppercorns","cayenne pepper", "chili powder","cinnamon","cloves","cream of tartar","cumin","curry powder","ginger","caraway seeds","cardamom","cardamom pods","lemongrass","cinnamon sticks","turmeric","saffron","anise seeds"],
 		"italian": ["rosemary","thyme","oregano","parsley","sage","juniper berries"],
@@ -9,6 +16,9 @@
 		"general":["white peppercorns","salt","kosher salt"],
 		"middle eastern": ["allspice"]
 		},
+	"italianBreads":["Pane di Lariano","Pane Casareccio","Pane Siciliano","Rosette","Ciabatta","Pane di Genzano","Focaccia Ligure","Taralli","Friselle","Focaccia al Pomodoro","Ciambella","Pane Casareccio","Pane di Matera, La Corna","Pane di Matera","Schuttelbrot","Pane di Segale"],
+	"italianHerbs":["Basil","Bay leaf","Marjoram","Mint","Oregano","Parsley","Rosemary","Sage"],	
+	"mexicanHerbs":["Basil","Bay leaf","Cilantros"],	
 	"proteins":{
 		"poultry": ["chicken","duck","goose","turkey","ground chicken","ground turkey"],
 		"meats": ["beef","ham","lamb","pork","veal","bison","rabbit","venison","liver","giblets"],
@@ -31,7 +41,7 @@
 		"roots" : ["beetroot","beet","mangel-wurzel","carrot","celeriac","daikon","ginger","parsnip","rutabaga","turnip"],
 		"radish" : ["swede", "rutabaga","turnip","wasabi","horseradish","white radish"],
 		"squash" : ["corn squash","butternut squash","banana squash","courgette", "zucchini","cucumber","delicata","gem squash","hubbard squash","marrow","squash","patty pans","pumpkin","spaghetti squash"],
-		"tubers" : ["jicama","jerusalem artichoke","potato","sweet potato","taro","yam"]	
-	},
-	"peppers": ["green pepper", "red pepper",  "bell pepper", "pimento","chili pepper","capsicum", "jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"]
+		"tubers" : ["jicama","jerusalem artichoke","potato","sweet potato","taro","yam"]
+	}, 
+	"peppers":["green pepper", "red pepper","bell pepper","pimento","chili pepper","capsicum","jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"]
 }

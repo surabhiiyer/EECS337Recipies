@@ -30,11 +30,26 @@ class Methods:
 		self.m_ingredientUsed = [] #Ingredient on which the method has to be applied
 		self.m_toolsUsed = []
 
-class TransformedIngredients: 
+class Transformed_Indian: 
 	def __init__(self): 
-		self.m_IngName = '' 
-		self.m_IngType = ''
-		self.m_IngMeasurement = ''
-		self.m_IngDescriptor = []
-		self.m_IngPreparation = []
-		self.m_IngPrepDescriptor = []
+		self.m_IngName = ''
+
+class Transformed_Italian: 
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Mexican: 
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Vegetarian:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_NonVegetarian:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_Vegan:  
+	def __init__(self): 
+		self.m_IngName = ''

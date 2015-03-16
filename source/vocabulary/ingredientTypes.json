@@ -183,5 +183,6 @@
 		"squash" : ["corn squash","butternut squash","banana squash","courgette", "zucchini","cucumber","delicata","gem squash","hubbard squash","marrow","squash","patty pans","pumpkin","spaghetti squash"],
 		"tubers" : ["jicama","jerusalem artichoke","potato","sweet potato","taro","yam"]	
 	},
-	"peppers": ["green pepper", "red pepper",  "bell pepper", "pimento","chili pepper","capsicum", "jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"]
+	"peppers": ["green pepper", "red pepper",  "bell pepper", "pimento","chili pepper","capsicum", "jalapeno","habanero","paprika","tabasco pepper","cayenne pepper"], 
+	"herbs":["Basil", "Chervil","Chives","Cilantro","Curry Leaves","Fenugreek","Mint","Oregano","Parsley","Rosemary","Shiso","Tarragon","Thai Basil","Thyme"]
 }
