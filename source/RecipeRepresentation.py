@@ -60,8 +60,12 @@ class Transformed_NonVegetarian:
 class Transformed_Vegan:  
 	def __init__(self): 
 		self.m_IngName = ''
-		
+
 class Transformed_EastAsian:  
+	def __init__(self): 
+		self.m_IngName = ''
+
+class Transformed_French:  
 	def __init__(self): 
 		self.m_IngName = ''
 
